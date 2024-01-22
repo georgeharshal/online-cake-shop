@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display category</title>
+</head>
+<body>
+<!--<div class="card-body col-12">-->
+<!--  <h4 class="card-title">Category Details</h4>-->
+
+<!--  <div class="table-responsive">-->
+<!--    <table class="table table-striped" width="100%">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--                                <th width="300">-->
+<!--                                        Category Name-->
+<!--                          </th >-->
+<!--                          <th width="400">-->
+<!--                            Category Description-->
+<!--                          </th>-->
+<!--                          <th width="300">-->
+<!--                            Images-->
+<!--                          </th>-->
+<!--                          <th width="300">-->
+<!--                            Options-->
+<!--                          </th>-->
+
+<!--                        </tr>-->
+<!--                      </thead>-->
+<!--                      <tbody>-->
+<!--                      {% for i in data %}-->
+<!--                        <tr>-->
+
+<!--                          <td width="300">-->
+<!--                            {{i.CategoryName}}-->
+<!--                          </td>-->
+<!--                          <td width="400">-->
+
+<!--                            {{i.CategoryDescription}}-->
+
+<!--                          </td>-->
+
+<!--                            <td width="300" class="py-3">-->
+<!--                            <img src="{{i.CategoryImage.url}}" width="80" height="80">-->
+<!--                          </td>-->
+<!--                          <td width="300">-->
+<!--                            <a>-->
+<!--                              <button type="submit" class="btn btn-dark">EDIT</button>-->
+<!--                            </a>-->
+<!--                          </td>-->
+
+
+<!--                        </tr>-->
+<!--                      {% endfor %}-->
+
+<!--                      </tbody>-->
+<!--                    </table>-->
+<!--                  </div>-->
+<!--                </div>-->
+<div class="col-lg-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Category Details</h4>
+
+                  <div class="table-responsive">
+                    <table class="table table-hover" style="table-layout: fixed; width: 100%;">
+                      <thead>
+                        <tr>
+                          <th width="180">Category</th>
+                          <th width="600" >Description</th>
+                          <th width="100">Images</th>
+                          <th>Options</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in data %}
+                        <tr>
+                          <td width="180">{{i.CategoryName}}</td>
+                          <td width="600" style="overflow: hidden; text-overflow: ellipsis; width: 0;" >{{i.CategoryDescription}}</td>
+                          <td width="100" >
+                            <img src="{{i.CategoryImage.url}}" class="rounded-circle" width="180" height="180">
+                          </td>
+
+                          <td>
+                            <a href="{% url 'editcategorypage' cat_id=i.id %}">
+                              <button type="submit" class="btn btn-secondary">
+                                EDIT
+                              </button>
+                            </a>
+                            <a href="{% url 'deletecategorydata' ctgry_id=i.id %}">
+                              <button type="submit" class="btn btn-danger">
+                                DELETE
+                              </button>
+                            </a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'success' %}
+            <script>
+                swal('{{i}}', '', 'success')
+            </script>
+        {% elif i.tags == 'warning' %}
+            <script>
+                swal('{{i}}', '', 'warning')
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}', '', 'error')
+            </script>
+        {% else %}
+            <script>
+                swal('{{i}}', '', 'info')
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+</body>
+</html>
+{% endblock %}
